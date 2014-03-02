@@ -16,22 +16,22 @@ public class ContactListAdapter extends BaseAdapter {
 
 	private Context m_context;
 
-	private List<ParseObject> m_contactList;
+	private List<String> m_contactIDList;
 
 	
-	public ContactListAdapter(Context context, List<ParseObject> contactList) {
+	public ContactListAdapter(Context context, List<String> contactIDList) {
 		this.m_context = context;
-		this.m_contactList = contactList;
+		this.m_contactIDList = contactIDList;
 	}
 
 	//@Override
 	public int getCount() {
-		return this.m_contactList.size();
+		return this.m_contactIDList.size();
 	}
 
 	//@Override
 	public Object getItem(int position) {
-		return this.m_contactList.get(position);
+		return this.m_contactIDList.get(position);
 	}
 
 	//@Override
@@ -44,12 +44,12 @@ public class ContactListAdapter extends BaseAdapter {
 		ContactView contactView = null;
 		
 		if (convertView == null) {
-			contactView = new ContactView(m_context, this.m_contactList.get(position));
+			contactView = new ContactView(m_context);
 		}
 		else {
 			contactView = (ContactView)convertView;
 		}
-		contactView.setContact(this.m_contactList.get(position));
+		contactView.setContact(this.m_contactIDList.get(position));
 		return contactView;
 	}
 }

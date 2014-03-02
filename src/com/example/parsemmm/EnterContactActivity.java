@@ -79,15 +79,16 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 			//Get the Contact from the Parse database
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Contact");
 			query.getInBackground(contactID, new GetCallback<ParseObject>() {
-			  public void done(ParseObject contact, ParseException e) {
+			  public void done(ParseObject get_contact, ParseException e) {
 			    if (e == null) {
 			    	//set the Edit Text fields to values from the database
-			    	contactNameET.setHint(contact.getString("name"));
-					contactRelationET.setHint(contact.getString("relation"));
-					homePhoneET.setHint(contact.getString("homePhone"));
-					cellPhoneET.setHint(contact.getString("cellPhone"));
-					workPhoneET.setHint(contact.getString("workPhone"));
-					contactTypeSpinner.setSelection(contact.getInt("contact_type_position"));
+			    	contactNameET.setHint(get_contact.getString("name"));
+					contactRelationET.setHint(get_contact.getString("relation"));
+					homePhoneET.setHint(get_contact.getString("homePhone"));
+					cellPhoneET.setHint(get_contact.getString("cellPhone"));
+					workPhoneET.setHint(get_contact.getString("workPhone"));
+					contactTypeSpinner.setSelection(get_contact.getInt("contact_type_position"));
+					contactType = get_contact.getString("contact_type");
 			    }
 			    else
 			    {
@@ -110,6 +111,7 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 					contact.put("workPhone",workPhoneET.getText().toString());
 					contact.put("contact_type",contactType);
 					contact.put("contact_type_position",contactTypePosition);
+					
 					contact.saveInBackground();
 					if(flow == 1){ //Go to Allergy page
 						Intent i = new Intent();
@@ -127,25 +129,35 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 					}
 				}
 				else if(flow == 3){
+
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Contact");
+					
+					query.getInBackground(contactID, new GetCallback<ParseObject>() {
+						  public void done(ParseObject get_contact, ParseException e) {
+						    if (e == null) {
+						    	if(!contactNameET.getText().toString().equals("")){
+						    		get_contact.put("name",contactNameET.getText().toString());
+								}
+								if(!contactRelationET.getText().toString().equals("")){
+									get_contact.put("relation",contactRelationET.getText().toString());
+								}
+								if(!homePhoneET.getText().toString().equals("")){
+									get_contact.put("homePhone",homePhoneET.getText().toString());
+								}
+								if(!cellPhoneET.getText().toString().equals("")){
+									get_contact.put("cellPhone",cellPhoneET.getText().toString());
+								}
+								if(!workPhoneET.getText().toString().equals("")){
+									get_contact.put("workPhone",workPhoneET.getText().toString());
+								}
+								get_contact.put("contact_type",contactType);
+								get_contact.put("contact_type_position",contactTypePosition);
+								get_contact.saveInBackground();
+						    }
+						  }
+						});
 					//Only change values if a change is detected
-			    	if(!contactNameET.getText().toString().equals("")){
-						contact.put("name",contactNameET.getText().toString());
-					}
-					if(!contactRelationET.getText().toString().equals("")){
-						contact.put("relation",contactRelationET.getText().toString());
-					}
-					if(!homePhoneET.getText().toString().equals("")){
-						contact.put("homePhone",homePhoneET.getText().toString());
-					}
-					if(!cellPhoneET.getText().toString().equals("")){
-						contact.put("cellPhone",cellPhoneET.getText().toString());
-					}
-					if(!workPhoneET.getText().toString().equals("")){
-						contact.put("workPhone",workPhoneET.getText().toString());
-					}
-					contact.put("contact_type",contactType);
-					contact.put("contact_type_position",contactTypePosition);
-					contact.saveInBackground();
+			    
 					
 					//Go to View Info Page
 					Intent i = new Intent();
@@ -177,25 +189,34 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 				
 				else if(flow == 3){ //Editing existing contact
 					
-			    	if(!contactNameET.getText().toString().equals("")){
-						contact.put("name",contactNameET.getText().toString());
-					}
-					if(!contactRelationET.getText().toString().equals("")){
-						contact.put("relation",contactRelationET.getText().toString());
-					}
-					if(!homePhoneET.getText().toString().equals("")){
-						contact.put("homePhone",homePhoneET.getText().toString());
-					}
-					if(!cellPhoneET.getText().toString().equals("")){
-						contact.put("cellPhone",cellPhoneET.getText().toString());
-					}
-					if(!workPhoneET.getText().toString().equals("")){
-						contact.put("workPhone",workPhoneET.getText().toString());
-					}
-					contact.put("contact_type",contactType);
-					contact.put("contact_type_position",contactTypePosition);
-					contact.saveInBackground();
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Contact");
+					
+					query.getInBackground(contactID, new GetCallback<ParseObject>() {
+						  public void done(ParseObject get_contact, ParseException e) {
+						    if (e == null) {
+						    	if(!contactNameET.getText().toString().equals("")){
+						    		get_contact.put("name",contactNameET.getText().toString());
+								}
+								if(!contactRelationET.getText().toString().equals("")){
+									get_contact.put("relation",contactRelationET.getText().toString());
+								}
+								if(!homePhoneET.getText().toString().equals("")){
+									get_contact.put("homePhone",homePhoneET.getText().toString());
+								}
+								if(!cellPhoneET.getText().toString().equals("")){
+									get_contact.put("cellPhone",cellPhoneET.getText().toString());
+								}
+								if(!workPhoneET.getText().toString().equals("")){
+									get_contact.put("workPhone",workPhoneET.getText().toString());
+								}
+								get_contact.put("contact_type",contactType);
+								get_contact.put("contact_type_position",contactTypePosition);
+								get_contact.saveInBackground();
+						    }
+						  }
+						});
 				}
+				message("saved");
 				Intent i = new Intent();
 				i.putExtra("userid",ID);
 				i.putExtra("contactid", 0);

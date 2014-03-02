@@ -32,12 +32,15 @@ public class RegisterActivity extends Activity {
 		((Button)findViewById(R.id.registerButton)).setOnClickListener(new OnClickListener() {
 			@Override
             public void onClick(View v) {
-				
-				if(!passwordET.getText().toString().equals(passwordCET.getText().toString())){
+				String password = passwordET.getText().toString(); 
+				if(!password.equals(passwordCET.getText().toString())){
 					message("Error: Passwords do not match");
 				}
+				else if(password.length() < 6 || password.length() > 18){
+					message("Password must be between 6 to 18 characters");
+				}
 				else{
-					
+					//create user
 					final ParseUser user = new ParseUser();
 					user.setUsername(usernameET.getText().toString());
 					user.setPassword(passwordET.getText().toString());

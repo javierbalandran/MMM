@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EnterHistoryActivity extends Activity implements OnItemSelectedListener{
 
@@ -77,14 +78,14 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 		else if(flow == 3){
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
 			query.getInBackground(historyID, new GetCallback<ParseObject>() {
-			  public void done(ParseObject history, ParseException e) {
+			  public void done(ParseObject get_history, ParseException e) {
 			    if (e == null) {
 			    	historyTitleTV.setText("Edit Medical History Event");
-					historyNameET.setHint(history.getString("name"));
-					historyDescriptionET.setHint(history.getString("description"));
-					daySpinner.setSelection(history.getInt("day_position"));
-					monthSpinner.setSelection(history.getInt("month_position"));
-					yearET.setHint(history.getString("year"));
+					historyNameET.setHint(get_history.getString("name"));
+					historyDescriptionET.setHint(get_history.getString("description"));
+					daySpinner.setSelection(get_history.getInt("day_position"));
+					monthSpinner.setSelection(get_history.getInt("month_position"));
+					yearET.setHint(get_history.getString("year"));
 			    }
 			    else
 			    {
@@ -107,25 +108,39 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 					history.put("month", month);
 					history.put("month_position", monthPosition);
 					history.put("year", yearET.getText().toString());
+					history.saveInBackground();
 				}
 				else if(flow == 3){
-					if(!historyNameET.getText().toString().equals("")){
-						history.put("name", historyNameET.getText().toString());
-					}
-					if(!historyDescriptionET.getText().toString().equals("")){
-						history.put("description", historyDescriptionET.getText().toString());
-					}
-					if(!yearET.getText().toString().equals("")){
-						history.put("year", yearET.getText().toString());
-					}
-					history.put("day", day);
-					history.put("day_position", dayPosition);
-					
-					history.put("month", month);
-					history.put("month_position", monthPosition);
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
+					query.getInBackground(historyID, new GetCallback<ParseObject>() {
+					  public void done(ParseObject get_history, ParseException e) {
+					    if (e == null) {
+					    	if(!historyNameET.getText().toString().equals("")){
+					    		get_history.put("name", historyNameET.getText().toString());
+							}
+							if(!historyDescriptionET.getText().toString().equals("")){
+								get_history.put("description", historyDescriptionET.getText().toString());
+							}
+							if(!yearET.getText().toString().equals("")){
+								get_history.put("year", yearET.getText().toString());
+							}
+							get_history.put("day", day);
+							get_history.put("day_position", dayPosition);
+							
+							get_history.put("month", month);
+							get_history.put("month_position", monthPosition);
+							get_history.saveInBackground();
+					    }
+					    else
+					    {
+					    	
+					    }
+					  }
+					});
+
 				}
-				history.saveInBackground();
 				
+				message("saved");
 				Intent i = new Intent();
 				i.putExtra("userid",ID);
 				i.putExtra("historyid", 0);
@@ -152,13 +167,13 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 					history.put("month", month);
 					history.put("month_position", monthPosition);
 					history.put("year", yearET.getText().toString());
-					
+					history.saveInBackground();
 					
 					i.putExtra("historyid", 0);
 					i.putExtra("pageFlow", flow);
 					
 					if(flow == 1){
-						i.setClass(EnterHistoryActivity.this, EnterHistoryActivity.class); //Change to images
+						i.setClass(EnterHistoryActivity.this, ViewInfoActivity.class); //Change to images
 					}
 					else if(flow == 2){
 						i.setClass(EnterHistoryActivity.this, ViewInfoActivity.class);
@@ -166,23 +181,36 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 					
 				}
 				else if(flow == 3){
-					if(!historyNameET.getText().toString().equals("")){
-						history.put("name", historyNameET.getText().toString());
-					}
-					if(!historyDescriptionET.getText().toString().equals("")){
-						history.put("description", historyDescriptionET.getText().toString());
-					}
-					if(!yearET.getText().toString().equals("")){
-						history.put("year", yearET.getText().toString());
-					}
-					history.put("day", day);
-					history.put("day_position", dayPosition);
-					
-					history.put("month", month);
-					history.put("month_position", monthPosition);
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
+					query.getInBackground(historyID, new GetCallback<ParseObject>() {
+					  public void done(ParseObject get_history, ParseException e) {
+					    if (e == null) {
+					    	if(!historyNameET.getText().toString().equals("")){
+					    		get_history.put("name", historyNameET.getText().toString());
+							}
+							if(!historyDescriptionET.getText().toString().equals("")){
+								get_history.put("description", historyDescriptionET.getText().toString());
+							}
+							if(!yearET.getText().toString().equals("")){
+								get_history.put("year", yearET.getText().toString());
+							}
+							get_history.put("day", day);
+							get_history.put("day_position", dayPosition);
+							
+							get_history.put("month", month);
+							get_history.put("month_position", monthPosition);
+							get_history.saveInBackground();
+					    }
+					    else
+					    {
+					    	
+					    }
+					  }
+					});
 					i.setClass(EnterHistoryActivity.this, ViewInfoActivity.class);
 				}
-				history.saveInBackground();
+				message("saved");
+				
 				startActivity(i);
             }
 		});
@@ -194,6 +222,12 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 		getMenuInflater().inflate(R.menu.enter_history, menu);
 		return true;
 	}
+	
+	void message(String text){
+		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+
 
 	@Override
 	public void onItemSelected(AdapterView<?> parent, View view, int pos,

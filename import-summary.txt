@@ -7,8 +7,6 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* .gitattributes
-* .gitignore
 * .idea\
 * .idea\.name
 * .idea\compiler.xml
@@ -21,7 +19,8 @@ so manually move them:
 * .idea\scopes\scope_settings.xml
 * .idea\vcs.xml
 * .idea\workspace.xml
-* README.md
+* MMM_keystore.keystore
+* ParseMMM.apk
 * app\
 * app\build.gradle
 * app\libs\
@@ -56,7 +55,6 @@ so manually move them:
 * app\src\main\res\drawable-xxhdpi\ic_launcher.png
 * app\src\main\res\layout\
 * app\src\main\res\layout\activity_basic_info.xml
-* app\src\main\res\layout\activity_contact_view.xml
 * app\src\main\res\layout\activity_enter_allergy.xml
 * app\src\main\res\layout\activity_enter_basic.xml
 * app\src\main\res\layout\activity_enter_contact.xml
@@ -67,7 +65,14 @@ so manually move them:
 * app\src\main\res\layout\activity_main_return.xml
 * app\src\main\res\layout\activity_register.xml
 * app\src\main\res\layout\activity_view_info.xml
+* app\src\main\res\layout\allergy_list_view.xml
 * app\src\main\res\layout\contact_list_view.xml
+* app\src\main\res\layout\history_list_view.xml
+* app\src\main\res\layout\medication_list_view.xml
+* app\src\main\res\layout\view_allergy.xml
+* app\src\main\res\layout\view_contact.xml
+* app\src\main\res\layout\view_history.xml
+* app\src\main\res\layout\view_medication.xml
 * app\src\main\res\menu\
 * app\src\main\res\menu\basic_info.xml
 * app\src\main\res\menu\contact.xml
@@ -100,6 +105,7 @@ so manually move them:
 * gradlew
 * gradlew.bat
 * ic_launcher-web.png
+* parseMMM_keystore.keystore
 * proguard-project.txt
 * settings.gradle
 

@@ -10,18 +10,25 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".MainActivity" >
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:src="@drawable/mmmlogo"/>
     <Button
         android:id="@+id/login_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Log In" />
+        android:text="Log In"
+        android:textSize="25sp"/>
 
     <Button
         android:id="@+id/register_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Register" />
+        android:text="Register"
+        android:textSize="25sp"/>
 
 </LinearLayout>

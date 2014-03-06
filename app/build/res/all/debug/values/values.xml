@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- From: file:/C:/Users/javie_000/AndroidStudioProjects/ParseMMM/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string-array name="allergy_type_array">
+        <item>N/A</item>
+        <item>Drug</item>
+        <item>Food</item>
+        <item>Environment</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="blood_type_array">
+        <item>N/A</item>
+        <item>O positive</item>
+        <item>O negative</item>
+        <item>A positive</item>
+        <item>A negative</item>
+        <item>B positive</item>
+        <item>B negative</item>
+        <item>AB positive</item>
+        <item>AB negative</item>
+    </string-array>
+    <string-array name="contact_type_array">
+        <item>N/A</item>
+        <item>Emergency</item>
+        <item>Primary Physician</item>
+        <item>Advanced Directive</item>
+        <item>Other</item>
+    </string-array>
+    <string-array name="day_array">
+        <item>N/A</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+        <item>21</item>
+        <item>22</item>
+        <item>23</item>
+        <item>24</item>
+        <item>25</item>
+        <item>26</item>
+        <item>27</item>
+        <item>28</item>
+        <item>29</item>
+        <item>30</item>
+        <item>31</item>
+    </string-array>
+    <string-array name="month_array">
+        <item>N/A</item>
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+    </string-array>
+    <!-- From: file:/C:/Users/javie_000/AndroidStudioProjects/ParseMMM/app/src/main/res/values/dimens.xml -->
+    <eat-comment />
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <!-- From: file:/C:/Users/javie_000/AndroidStudioProjects/ParseMMM/app/src/main/res/values/strings.xml -->
+    <eat-comment />
+
+    <string name="action_settings">Settings</string>
+    <string name="app_name">My Mini Med</string>
+    <string name="loading">Loading...</string>
+    <string name="title_activity_basic_info">BasicInfoActivity</string>
+    <string name="title_activity_contact">ContactActivity</string>
+    <string name="title_activity_contact_view">ContactView</string>
+    <string name="title_activity_enter_allergy">EnterAllergyActivity</string>
+    <string name="title_activity_enter_basic">EnterBasicActivity</string>
+    <string name="title_activity_enter_history">EnterHistoryActivity</string>
+    <string name="title_activity_enter_medication_history">EnterMedicationHistory</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="title_activity_view_info">ViewInfoActivity</string>
+    <string name="title_section1">Basic Info</string>
+    <string name="title_section2">Contacts</string>
+    <string name="title_section3">Allergies</string>
+    <string name="title_section4">Medication</string>
+    <string name="title_section5">Medical History</string>
+    <!-- From: file:/C:/Users/javie_000/AndroidStudioProjects/ParseMMM/app/src/main/res/values/styles.xml -->
+    <eat-comment />
+
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+
+</resources>

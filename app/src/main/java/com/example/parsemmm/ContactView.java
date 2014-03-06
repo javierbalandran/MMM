@@ -1,6 +1,9 @@
 package com.example.parsemmm;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 import android.os.Bundle;
 import android.app.Activity;
@@ -22,10 +25,10 @@ public class ContactView extends LinearLayout {
 	TextView contactCellTV;
 	TextView contactWorkTV;
 	
-	public ContactView(Context context, ParseObject contact){
+	public ContactView(Context context){
 		super(context);
 		LayoutInflater inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		inflater.inflate(R.layout.activity_contact_view, this, true);
+		inflater.inflate(R.layout.view_contact, this, true);
 		this.contactNameTV = (TextView)findViewById(R.id.contactNameDisplay);
 		this.contactTypeTV = (TextView)findViewById(R.id.contactTypeDisplay);
 		this.contactRelationTV = (TextView)findViewById(R.id.contactRelationDisplay);
@@ -36,13 +39,24 @@ public class ContactView extends LinearLayout {
 		
 	}
 
-	public void setContact(ParseObject contact) {
-		contactNameTV.setText(contact.getString("name"));
-		contactTypeTV.setText(contact.getString("type"));
-		contactRelationTV.setText(contact.getString("relation"));
-		contactHomeTV.setText(contact.getString("homePhone"));
-		contactCellTV.setText(contact.getString("cellPhone"));
-		contactWorkTV.setText(contact.getString("workPhone"));
+	public void setContact(String contactid) {
+		ParseQuery<ParseObject> query = ParseQuery.getQuery("Contact");
+		query.getInBackground(contactid, new GetCallback<ParseObject>() {
+		  public void done(ParseObject contact, ParseException e) {
+		    if (e == null) {
+		    	contactNameTV.setText(contact.getString("name"));
+				contactTypeTV.setText(contact.getString("type"));
+				contactRelationTV.setText(contact.getString("relation"));
+				contactHomeTV.setText(contact.getString("homePhone"));
+				contactCellTV.setText(contact.getString("cellPhone"));
+				contactWorkTV.setText(contact.getString("workPhone"));
+		    }
+		    else
+		    {
+		    	
+		    }
+		  }
+		});
 		
 	}
 

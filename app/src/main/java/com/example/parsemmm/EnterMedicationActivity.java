@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EnterMedicationActivity extends Activity {
 
@@ -66,16 +67,16 @@ public class EnterMedicationActivity extends Activity {
 			
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Medication");
 			query.getInBackground(medicationID, new GetCallback<ParseObject>() {
-			  public void done(ParseObject allergy, ParseException e) {
+			  public void done(ParseObject get_medication, ParseException e) {
 			    if (e == null) {
-			    	medicationNameET.setHint(allergy.getString("name"));
-			    	medicationAmountET.setHint(allergy.getString("amount"));
-			    	medicationIntervalET.setHint(allergy.getInt("interval"));
-			    	medicationDescriptionET.setHint(allergy.getInt("description"));
-			    	if(allergy.getString("source").equals("Prescribed")){
+			    	medicationNameET.setHint(get_medication.getString("name"));
+			    	medicationAmountET.setHint(get_medication.getString("amount"));
+			    	medicationIntervalET.setHint(get_medication.getString("interval"));
+			    	medicationDescriptionET.setHint(get_medication.getString("description"));
+			    	if(get_medication.getString("source").equals("Prescribed")){
 			    		medicationRG.check(R.id.prescribedRadioButton);
 			    	}
-			    	else if(allergy.getString("source").equals("Over the Counter")){
+			    	else if(get_medication.getString("source").equals("Over the Counter")){
 			    		medicationRG.check(R.id.OTCRadioButton);
 			    	}
 			    }
@@ -114,21 +115,36 @@ public class EnterMedicationActivity extends Activity {
 				
 				else if(flow == 3){
 					
-			    	if(!medicationNameET.getText().toString().equals("")){
-			    		medication.put("name",medicationNameET.getText().toString());
-					}
-					if(!medicationAmountET.getText().toString().equals("")){
-						medication.put("relation",medicationAmountET.getText().toString());
-					}
-					if(!medicationIntervalET.getText().toString().equals("")){
-						medication.put("homePhone",medicationIntervalET.getText().toString());
-					}
-					if(!medicationDescriptionET.getText().toString().equals("")){
-						medication.put("cellPhone",medicationDescriptionET.getText().toString());
-					}
-					medication.put("source", PorOTC);
-					medication.saveInBackground();
+					
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Medication");
+					query.getInBackground(medicationID, new GetCallback<ParseObject>() {
+					  public void done(ParseObject get_medication, ParseException e) {
+					    if (e == null) {
+					    	if(!medicationNameET.getText().toString().equals("")){
+					    		get_medication.put("name",medicationNameET.getText().toString());
+							}
+							if(!medicationAmountET.getText().toString().equals("")){
+								get_medication.put("amount",medicationAmountET.getText().toString());
+							}
+							if(!medicationIntervalET.getText().toString().equals("")){
+								get_medication.put("interval",medicationIntervalET.getText().toString());
+							}
+							if(!medicationDescriptionET.getText().toString().equals("")){
+								get_medication.put("description",medicationDescriptionET.getText().toString());
+							}
+							get_medication.put("source", PorOTC);
+							get_medication.saveInBackground();
+					    }
+					    else
+					    {
+					    	
+					    }
+					  }
+					});
+					
+			    	
 				}
+				message("saved");
 				Intent i = new Intent();
 				i.putExtra("userid",ID);
 				i.putExtra("medicationid", 0);
@@ -172,9 +188,9 @@ public class EnterMedicationActivity extends Activity {
 					if(flow == 1){
 						Intent i = new Intent();
 						i.putExtra("userid",ID);
-						i.putExtra("medicationid", 0);
+						i.putExtra("historyid", 0);
 						i.putExtra("pageFlow", flow);
-		                i.setClass(EnterMedicationActivity.this, EnterMedicationActivity.class);
+		                i.setClass(EnterMedicationActivity.this, EnterHistoryActivity.class);
 		                startActivity(i);
 					}
 					else if(flow == 2){
@@ -185,21 +201,32 @@ public class EnterMedicationActivity extends Activity {
 					}
 				}
 				else if(flow == 3){
-					if(!medicationNameET.getText().toString().equals("")){
-			    		medication.put("name",medicationNameET.getText().toString());
-					}
-					if(!medicationAmountET.getText().toString().equals("")){
-						medication.put("relation",medicationAmountET.getText().toString());
-					}
-					if(!medicationIntervalET.getText().toString().equals("")){
-						medication.put("homePhone",medicationIntervalET.getText().toString());
-					}
-					if(!medicationDescriptionET.getText().toString().equals("")){
-						medication.put("cellPhone",medicationDescriptionET.getText().toString());
-					}
-					medication.put("source", PorOTC);
-					medication.saveInBackground();
-					
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Medication");
+					query.getInBackground(medicationID, new GetCallback<ParseObject>() {
+					  public void done(ParseObject get_medication, ParseException e) {
+					    if (e == null) {
+					    	if(!medicationNameET.getText().toString().equals("")){
+					    		get_medication.put("name",medicationNameET.getText().toString());
+							}
+							if(!medicationAmountET.getText().toString().equals("")){
+								get_medication.put("amount",medicationAmountET.getText().toString());
+							}
+							if(!medicationIntervalET.getText().toString().equals("")){
+								get_medication.put("interval",medicationIntervalET.getText().toString());
+							}
+							if(!medicationDescriptionET.getText().toString().equals("")){
+								get_medication.put("description",medicationDescriptionET.getText().toString());
+							}
+							get_medication.put("source", PorOTC);
+							get_medication.saveInBackground();
+					    }
+					    else
+					    {
+					    	
+					    }
+					  }
+					});
+					message("saved");
 					Intent i = new Intent();
 					i.putExtra("userid",ID);
 	                i.setClass(EnterMedicationActivity.this, ViewInfoActivity.class);
@@ -214,7 +241,11 @@ public class EnterMedicationActivity extends Activity {
 	}
 		
 		
-		
+	void message(String text){
+		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+
 	
 
 	@Override

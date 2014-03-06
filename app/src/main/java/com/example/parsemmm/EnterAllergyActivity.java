@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class EnterAllergyActivity extends Activity implements OnItemSelectedListener{
 
@@ -68,12 +69,12 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 			allergyTitleTV.setText("Edit Allergy");
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("Allergy");
 			query.getInBackground(allergyID, new GetCallback<ParseObject>() {
-			  public void done(ParseObject allergy, ParseException e) {
+			  public void done(ParseObject get_allergy, ParseException e) {
 			    if (e == null) {
 			    	allergyTitleTV.setText("Edit Allergy");
-					allergyNameET.setHint(allergy.getString("name"));
-					allergyDetailsET.setHint(allergy.getString("details"));
-					allergyTypeSpinner.setSelection(allergy.getInt("allergy_type_position"));
+					allergyNameET.setHint(get_allergy.getString("name"));
+					allergyDetailsET.setHint(get_allergy.getString("details"));
+					allergyTypeSpinner.setSelection(get_allergy.getInt("allergy_type_position"));
 			    }
 			    else
 			    {
@@ -95,16 +96,30 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 					allergy.put("typePosition", allergyTypePosition);
 				}
 				else if(flow == 3){
-					if(!allergyNameET.getText().toString().equals("")){
-						allergy.put("name", allergyNameET.getText().toString());
-					}
-					if(!allergyDetailsET.getText().toString().equals("")){
-						allergy.put("details", allergyNameET.getText().toString());
-					}
-					allergy.put("type", allergyType);
-					allergy.put("typePosition", allergyTypePosition);
+					
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Allergy");
+					query.getInBackground(allergyID, new GetCallback<ParseObject>() {
+					  public void done(ParseObject get_allergy, ParseException e) {
+					    if (e == null) {
+					    	if(!allergyNameET.getText().toString().equals("")){
+					    		get_allergy.put("name", allergyNameET.getText().toString());
+							}
+							if(!allergyDetailsET.getText().toString().equals("")){
+								get_allergy.put("details", allergyNameET.getText().toString());
+							}
+							get_allergy.put("type", allergyType);
+							get_allergy.put("typePosition", allergyTypePosition);
+							get_allergy.saveInBackground();
+					    }
+					    else
+					    {
+					    	
+					    }
+					  }
+					});
+					
 				}
-				allergy.saveInBackground();
+				
 				
 				Intent i = new Intent();
 				i.putExtra("userid",ID);
@@ -134,10 +149,11 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 					allergy.put("details",allergyDetailsET.getText().toString());
 					allergy.put("type", allergyType);
 					allergy.put("typePosition", allergyTypePosition);
+					allergy.saveInBackground();
 					
-					i.putExtra("pageFlow", flow);
 					
 					if(flow == 1){
+						i.putExtra("pageFlow", 1);
 						i.setClass(EnterAllergyActivity.this, EnterMedicationActivity.class); //Change to Medication
 					}
 					else if(flow == 2){
@@ -147,18 +163,30 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 	                
 				}
 				else if(flow == 3){
-					if(!allergyNameET.getText().toString().equals("")){
-						allergy.put("name", allergyNameET.getText().toString());
-					}
-					if(!allergyDetailsET.getText().toString().equals("")){
-						allergy.put("details", allergyNameET.getText().toString());
-					}
-					allergy.put("type", allergyType);
-					allergy.put("typePosition", allergyTypePosition);
+					ParseQuery<ParseObject> query = ParseQuery.getQuery("Allergy");
+					query.getInBackground(allergyID, new GetCallback<ParseObject>() {
+					  public void done(ParseObject get_allergy, ParseException e) {
+					    if (e == null) {
+					    	if(!allergyNameET.getText().toString().equals("")){
+					    		get_allergy.put("name", allergyNameET.getText().toString());
+							}
+							if(!allergyDetailsET.getText().toString().equals("")){
+								get_allergy.put("details", allergyNameET.getText().toString());
+							}
+							get_allergy.put("type", allergyType);
+							get_allergy.put("typePosition", allergyTypePosition);
+							get_allergy.saveInBackground();
+					    }
+					    else
+					    {
+					    	
+					    }
+					  }
+					});
 					i.setClass(EnterAllergyActivity.this,ViewInfoActivity.class);
 				}
 				
-				allergy.saveInBackground();
+				
                 startActivity(i);
             }
 		});
@@ -184,5 +212,11 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 		// TODO Auto-generated method stub
 		
 	}
+	
+	void message(String text){
+		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
+		toast.show();
+	}
+
 
 }

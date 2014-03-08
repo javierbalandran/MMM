@@ -105,7 +105,7 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 					    		get_allergy.put("name", allergyNameET.getText().toString());
 							}
 							if(!allergyDetailsET.getText().toString().equals("")){
-								get_allergy.put("details", allergyNameET.getText().toString());
+								get_allergy.put("details", allergyDetailsET.getText().toString());
 							}
 							get_allergy.put("type", allergyType);
 							get_allergy.put("typePosition", allergyTypePosition);

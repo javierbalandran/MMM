@@ -16,6 +16,12 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/*
+
+NOT USED IN FINAL PRODUCT
+
+*/
+
 public class ContactView extends LinearLayout {
 	
 	TextView contactNameTV;

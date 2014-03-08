@@ -73,6 +73,13 @@ public class ViewInfoActivity extends FragmentActivity {
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
 	}
+	
+	@Override
+	public void onBackPressed(){
+		Intent i = new Intent();
+        i.setClass(ViewInfoActivity.this, MainActivity.class);
+        startActivity(i);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

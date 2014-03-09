@@ -13,16 +13,20 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class User {
 
 	private String firstName;
+	private String middleInitial;
 	private String lastName;
 	private String birthDate;
 	private BloodType bloodType;
-	
-	public User(String firstName, String lastName, String birthDate,
-			BloodType bloodType) {
+	private Gender gender;
+
+	public User(String firstName, String middleInitial, String lastName,
+			String birthDate, BloodType bloodType, Gender gender) {
 		this.firstName = firstName;
+		this.middleInitial = middleInitial;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.bloodType = bloodType;
+		this.gender = gender;
 	}
 
 	public User(String json) {
@@ -36,9 +40,11 @@ public class User {
 		}
 		
 		this.firstName = (String) values.get(FieldNames.USER.FIRST_NAME);
+		this.middleInitial = (String) values.get(FieldNames.USER.MIDDLE_INITIAL);
 		this.lastName = (String) values.get(FieldNames.USER.LAST_NAME);
 		this.birthDate = (String) values.get(FieldNames.USER.DOB);
 		this.bloodType = BloodType.valueOf((String)values.get(FieldNames.USER.BLOOD_TYPE));
+		this.gender = Gender.valueOf((String)values.get(FieldNames.USER.GENDER));
 	}
 	
 	public String getJSONString() {
@@ -47,9 +53,11 @@ public class User {
 		Map<String, Object> values = new HashMap<String, Object>();
 		
 		values.put(FieldNames.USER.FIRST_NAME, firstName);
+		values.put(FieldNames.USER.MIDDLE_INITIAL, middleInitial);
 		values.put(FieldNames.USER.LAST_NAME, lastName);
 		values.put(FieldNames.USER.DOB, birthDate);
 		values.put(FieldNames.USER.BLOOD_TYPE, bloodType.name());
+		values.put(FieldNames.USER.GENDER, gender.name());
 		
 		try {
 			blobString = mapper.writeValueAsString(values);
@@ -59,11 +67,4 @@ public class User {
 		return blobString;
 	}
 
-	@Override
-	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName
-				+ ", birthDate=" + birthDate + ", bloodType=" + bloodType + "]";
-	}
-
-	
 }

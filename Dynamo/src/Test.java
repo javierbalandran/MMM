@@ -7,7 +7,6 @@ import java.util.Map;
 
 import minimed.data.Account;
 import minimed.data.BloodType;
-import minimed.data.Gender;
 import minimed.data.User;
 
 import com.amazonaws.auth.AWSCredentialsProvider;
@@ -22,10 +21,6 @@ import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.dynamodbv2.model.PutItemResult;
-import com.amazonaws.services.s3.AmazonS3Client;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.amazonaws.services.s3.model.PutObjectResult;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -40,17 +35,15 @@ public class Test {
 	    Region usWest2 = Region.getRegion(Regions.US_WEST_2);
 	    dynamoDB.setRegion(usWest2);
 	    
-	    String bucketName = "mini-med";
-	    String username = "test2@blah.com"; 
-	    String keyName = username + "-userData.txt";
+	    String username = "test1@blah.com"; 
 	    
 	    Account account = new Account(username);
-	    User user = new User("Jim", "P", "Bob","4/1/1992",BloodType.B_POSITIVE, Gender.MALE);
+	    User user = new User("John","Doe","4/1/1992",BloodType.B_POSITIVE);
 	    
 	    DynamoDBMapper dynMapper = new DynamoDBMapper(dynamoDB, credentialProvider);
 
 	    // S3 region can be specified, but is optional
-	    S3Link s3UserLink = dynMapper.createS3Link(bucketName, keyName);
+	    S3Link s3UserLink = dynMapper.createS3Link("mini-med", username + "-userData.txt");
 	    account.setUserData(s3UserLink);
 	    dynMapper.save(account);
 	    
@@ -62,20 +55,7 @@ public class Test {
 	    userWriter.flush();
 	    userWriter.close();
 	    
-	    //s3UserLink.uploadFrom(userFile); 
-	    
-	    AmazonS3Client s3Client = s3UserLink.getAmazonS3Client();
-	    
-	    PutObjectRequest putRequest = new PutObjectRequest(
-                bucketName, keyName, userFile);
-
-		//Request server-side encryption.
-		ObjectMetadata objectMetadata = new ObjectMetadata();
-		objectMetadata.setServerSideEncryption(
-		ObjectMetadata.AES_256_SERVER_SIDE_ENCRYPTION);     
-		putRequest.setMetadata(objectMetadata);
-		
-		PutObjectResult response = s3Client.putObject(putRequest);
+	    s3UserLink.uploadFrom(userFile); 
 	    
 //        Map<String, AttributeValue> item = new HashMap<String, AttributeValue>();
 //        item.put("username", new AttributeValue(username));

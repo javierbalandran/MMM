@@ -13,12 +13,6 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-
-/*
-
-NOT USED IN FINAL APP
-
-*/
 public class BasicInfoActivity extends Activity {
 
 	

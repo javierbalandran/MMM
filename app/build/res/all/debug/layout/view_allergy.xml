@@ -13,14 +13,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Allergy: "
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/allergyNameDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loading"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -33,14 +35,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Type: "
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/allergyTypeDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loading"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -53,14 +57,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Details: "
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="25sp"/>
 
         <TextView
             android:id="@+id/allergyDetailsDisplay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/loading"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="20sp"/>
 
     </LinearLayout>
 
@@ -69,7 +75,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="Edit" />
+        android:text="Edit"
+        android:textSize="25sp"/>
 
 </LinearLayout>
 <!-- From: file:/C:/Users/javie_000/AndroidStudioProjects/ParseMMM/app/src/main/res/layout/view_allergy.xml -->

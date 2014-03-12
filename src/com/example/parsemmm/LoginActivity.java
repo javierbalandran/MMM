@@ -36,7 +36,7 @@ public class LoginActivity extends Activity {
 					    if (user != null) {
 					    	
 					    	Intent i = new Intent();
-			                i.setClass(LoginActivity.this, ViewInfoActivity.class);
+			                i.setClass(LoginActivity.this, BasicInfoActivity.class);
 			                i.putExtra("userid", user.getObjectId());
 			                startActivity(i);
 			                

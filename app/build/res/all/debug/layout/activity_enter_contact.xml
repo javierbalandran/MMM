@@ -16,14 +16,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp"/>
 
     <EditText
         android:id="@+id/contactNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Contact Name"
-        android:ems="10" >
+        android:ems="10"
+        android:textSize="25sp">
 
         <requestFocus />
     </EditText>
@@ -37,13 +39,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact Type: "
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="20sp"/>
 
         <Spinner
             android:id="@+id/contactTypeSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="25sp"/>
 
     </LinearLayout>
 
@@ -52,7 +56,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Relation (e.g. mother)"
-        android:ems="10" />
+        android:ems="10"
+        android:textSize="25sp"/>
 
     <EditText
         android:id="@+id/contactPhoneEditText1"
@@ -60,7 +65,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Phone Number (Home)"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textSize="25sp"/>
 
     <EditText
         android:id="@+id/contactPhoneEditText2"
@@ -68,7 +74,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Phone Number (Cell)"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textSize="25sp"/>
 
     <EditText
         android:id="@+id/contactPhoneEditText3"
@@ -76,7 +83,8 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Phone Number (Work)"
-        android:inputType="phone" />
+        android:inputType="phone"
+        android:textSize="25sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,14 +97,16 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:layout_weight="1"
-            android:text="Add Another Contact" />
+            android:text="Add Another Contact"
+            android:textSize="25sp"/>
 
         <Button
             android:id="@+id/contactSubmitButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Continue" />
+            android:text="Continue"
+            android:textSize="25sp"/>
     </LinearLayout>
 
 </LinearLayout>

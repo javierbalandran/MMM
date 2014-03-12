@@ -16,14 +16,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="30sp"/>
 
     <EditText
         android:id="@+id/medicationNameEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Name of Medication" >
+        android:hint="Name of Medication"
+        android:textSize="25sp">
 
         <requestFocus />
     </EditText>
@@ -32,20 +34,22 @@
         android:id="@+id/medicationRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:orientation="horizontal">
 
         <RadioButton
             android:id="@+id/prescribedRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:checked="true"
-            android:text="Prescribed" />
+            android:text="Prescribed"
+            android:textSize="25sp"/>
 
         <RadioButton
             android:id="@+id/OTCRadioButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Over the Counter" />
+            android:layout_height="match_parent"
+            android:text="Over the Counter"
+            android:textSize="25sp"/>
     </RadioGroup>
 
     <LinearLayout
@@ -58,7 +62,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="Amount " />
+            android:hint="Amount "
+            android:textSize="25sp"/>
 
         <EditText
             android:id="@+id/medicationIntervalEditText"
@@ -66,7 +71,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="per Interval" />
+            android:hint="per Interval"
+            android:textSize="25sp"/>
     </LinearLayout>
 
     <EditText
@@ -75,7 +81,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="2.19"
         android:ems="10"
-        android:hint="Description/Purpose" />
+        android:hint="Description/Purpose"
+        android:textSize="25sp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -84,16 +91,18 @@
         <Button
             android:id="@+id/additionalMedicationButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Add New" />
+            android:text="Add New"
+            android:textSize="25sp"/>
 
         <Button
             android:id="@+id/continueMedicationButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Continue" />
+            android:text="Continue"
+            android:textSize="25sp"/>
     </LinearLayout>
 
 </LinearLayout><!-- From: file:/C:/Users/javie_000/AndroidStudioProjects/ParseMMM/app/src/main/res/layout/activity_enter_medication.xml -->

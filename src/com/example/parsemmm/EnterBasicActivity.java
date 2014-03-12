@@ -18,7 +18,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class EnterBasicActivity extends Activity implements OnItemSelectedListener{
@@ -39,6 +42,13 @@ public class EnterBasicActivity extends Activity implements OnItemSelectedListen
 	int bloodTypePosition = 0;
 	int dayPosition = 0;
 	int monthPosition = 0;
+	
+	
+	
+	RadioGroup genderRG;
+	RadioButton maleRB;
+	RadioButton femaleRB;
+	String genderString;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +78,10 @@ public class EnterBasicActivity extends Activity implements OnItemSelectedListen
 		this.middleInitialET = (EditText)findViewById(R.id.middleInitialEditText);
 		this.yearET = (EditText)findViewById(R.id.yearEditText);
 		
+		this.genderRG = (RadioGroup)findViewById(R.id.genderRadioGroup);
+		this.maleRB = (RadioButton)findViewById(R.id.maleRadioButton);
+		this.femaleRB = (RadioButton)findViewById(R.id.femaleRadioButton);
+		
 		
 		//Create and set up all spinners (Drop Down Menus)
 		this.bloodSpinner = (Spinner) findViewById(R.id.bloodSpinner);
@@ -96,70 +110,85 @@ public class EnterBasicActivity extends Activity implements OnItemSelectedListen
 		if(flow == 2){
 			
 			//User already exists, fill edit text fields with current values
-			firstnameET.setHint(user.getString("first_name"));
-			lastnameET.setHint(user.getString("last_name"));
-			middleInitialET.setHint(user.getString("middle_initial"));
+			firstnameET.setText(user.getString("first_name"), TextView.BufferType.EDITABLE);
+			lastnameET.setText(user.getString("last_name"), TextView.BufferType.EDITABLE);
+			middleInitialET.setText(user.getString("middle_initial"), TextView.BufferType.EDITABLE);
 			bloodSpinner.setSelection(user.getInt("blood_type_position"));
 			daySpinner.setSelection(user.getInt("day_position"));
 			monthSpinner.setSelection(user.getInt("month_position"));
-			yearET.setHint(user.getString("year"));
+			yearET.setText(user.getString("year"), TextView.BufferType.EDITABLE);
+			if(user.getString("gender").equals("Male")){
+	    		genderRG.check(R.id.maleRadioButton);
+	    	}
+	    	else if(user.getString("gender").equals("Female")){
+	    		genderRG.check(R.id.femaleRadioButton);
+	    	}
+	    	else{
+	    		genderRG.check(R.id.maleRadioButton);
+	    	}
+			
 		}
 		
 		((Button)findViewById(R.id.enterButton)).setOnClickListener(new OnClickListener() {
 			@Override
             public void onClick(View v) {
-				Intent i = new Intent();
-				if(flow == 1){
-					//First time creation, fill all values
-					
-					user.put("first_name",firstnameET.getText().toString());
-					user.put("last_name",lastnameET.getText().toString());
-					user.put("middle_initial",middleInitialET.getText().toString());
-					user.put("year",yearET.getText().toString());
-					
-					user.put("blood_type", bloodType);
-					user.put("blood_type_position", bloodTypePosition);
-					
-					user.put("day", day);
-					user.put("day_position",dayPosition);
-					user.put("month", month);
-					user.put("month_position", monthPosition);
-					
-					user.saveInBackground();
-					
-					i.setClass(EnterBasicActivity.this, EnterContactActivity.class);
-					i.putExtra("contactID", 0);
-					i.putExtra("pageFlow", 1);
+				
+				if(firstnameET.getText().toString().equals("") || lastnameET.getText().toString().equals("")){
+					message("Please fill out required fields");
 				}
-				else if(flow == 2){
-					
-					//only change values if there has been change, other leave it
-					if(!firstnameET.getText().toString().equals("")){
+				else{
+					if(genderRG.getCheckedRadioButtonId()== R.id.maleRadioButton){
+						genderString = "Male";
+					}
+					else{
+						genderString = "Female";
+					}
+					Intent i = new Intent();
+					if(flow == 1){
+						//First time creation, fill all values
+						
 						user.put("first_name",firstnameET.getText().toString());
-					}
-					if(!lastnameET.getText().toString().equals("")){
 						user.put("last_name",lastnameET.getText().toString());
-					}
-					if(!middleInitialET.getText().toString().equals("")){
 						user.put("middle_initial",middleInitialET.getText().toString());
-					}
-					if(!yearET.getText().toString().equals("")){
 						user.put("year",yearET.getText().toString());
+						
+						user.put("blood_type", bloodType);
+						user.put("blood_type_position", bloodTypePosition);
+						
+						user.put("day", day);
+						user.put("day_position",dayPosition);
+						user.put("month", month);
+						user.put("month_position", monthPosition);
+						user.put("gender", genderString);					
+						user.saveInBackground();
+						
+						i.setClass(EnterBasicActivity.this, EnterContactActivity.class);
+						i.putExtra("contactID", 0);
+						i.putExtra("pageFlow", 1);
 					}
-					
-					
-					user.put("blood_type_position", bloodTypePosition);
-					user.put("blood_type", bloodType);
-					user.put("day", day);
-					user.put("day_position",dayPosition);
-					user.put("month", month);
-					user.put("month_position", monthPosition);
-					user.saveInBackground();
-					i.setClass(EnterBasicActivity.this, ViewInfoActivity.class);
+					else if(flow == 2){
+						
+						//only change values if there has been change, other leave it
+							user.put("first_name",firstnameET.getText().toString());
+							user.put("last_name",lastnameET.getText().toString());
+							user.put("middle_initial",middleInitialET.getText().toString());
+							user.put("year",yearET.getText().toString());
+						
+						
+						user.put("blood_type_position", bloodTypePosition);
+						user.put("blood_type", bloodType);
+						user.put("day", day);
+						user.put("day_position",dayPosition);
+						user.put("month", month);
+						user.put("month_position", monthPosition);
+						user.put("gender", genderString);		
+						user.saveInBackground();
+						i.setClass(EnterBasicActivity.this, ViewInfoActivity.class);
+					}
+					message("saved");
+					i.putExtra("userid", ID);
+	                startActivity(i);
 				}
-				message("saved");
-				i.putExtra("userid", ID);
-                startActivity(i);
             }
 		});
 		

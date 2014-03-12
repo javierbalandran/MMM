@@ -76,16 +76,17 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 			historyTitleTV.setText("Create Medical History Event");
 		}
 		else if(flow == 3){
+			historyTitleTV.setText("Edit Medical History Event");
 			ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
 			query.getInBackground(historyID, new GetCallback<ParseObject>() {
 			  public void done(ParseObject get_history, ParseException e) {
 			    if (e == null) {
 			    	historyTitleTV.setText("Edit Medical History Event");
-					historyNameET.setHint(get_history.getString("name"));
-					historyDescriptionET.setHint(get_history.getString("description"));
+					historyNameET.setText(get_history.getString("name"), TextView.BufferType.EDITABLE);
+					historyDescriptionET.setText(get_history.getString("description"), TextView.BufferType.EDITABLE);
 					daySpinner.setSelection(get_history.getInt("day_position"));
 					monthSpinner.setSelection(get_history.getInt("month_position"));
-					yearET.setHint(get_history.getString("year"));
+					yearET.setText(get_history.getString("year"), TextView.BufferType.EDITABLE);
 			    }
 			    else
 			    {
@@ -115,15 +116,9 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 					query.getInBackground(historyID, new GetCallback<ParseObject>() {
 					  public void done(ParseObject get_history, ParseException e) {
 					    if (e == null) {
-					    	if(!historyNameET.getText().toString().equals("")){
 					    		get_history.put("name", historyNameET.getText().toString());
-							}
-							if(!historyDescriptionET.getText().toString().equals("")){
 								get_history.put("description", historyDescriptionET.getText().toString());
-							}
-							if(!yearET.getText().toString().equals("")){
 								get_history.put("year", yearET.getText().toString());
-							}
 							get_history.put("day", day);
 							get_history.put("day_position", dayPosition);
 							
@@ -144,6 +139,9 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 				Intent i = new Intent();
 				i.putExtra("userid",ID);
 				i.putExtra("historyid", 0);
+				if(flow == 3){
+					flow = 2;
+				}
 				i.putExtra("pageFlow", flow);
                 i.setClass(EnterHistoryActivity.this, EnterHistoryActivity.class);
                 startActivity(i);
@@ -185,15 +183,9 @@ public class EnterHistoryActivity extends Activity implements OnItemSelectedList
 					query.getInBackground(historyID, new GetCallback<ParseObject>() {
 					  public void done(ParseObject get_history, ParseException e) {
 					    if (e == null) {
-					    	if(!historyNameET.getText().toString().equals("")){
 					    		get_history.put("name", historyNameET.getText().toString());
-							}
-							if(!historyDescriptionET.getText().toString().equals("")){
 								get_history.put("description", historyDescriptionET.getText().toString());
-							}
-							if(!yearET.getText().toString().equals("")){
 								get_history.put("year", yearET.getText().toString());
-							}
 							get_history.put("day", day);
 							get_history.put("day_position", dayPosition);
 							

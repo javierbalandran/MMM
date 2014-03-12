@@ -69,10 +69,10 @@ public class EnterMedicationActivity extends Activity {
 			query.getInBackground(medicationID, new GetCallback<ParseObject>() {
 			  public void done(ParseObject get_medication, ParseException e) {
 			    if (e == null) {
-			    	medicationNameET.setHint(get_medication.getString("name"));
-			    	medicationAmountET.setHint(get_medication.getString("amount"));
-			    	medicationIntervalET.setHint(get_medication.getString("interval"));
-			    	medicationDescriptionET.setHint(get_medication.getString("description"));
+			    	medicationNameET.setText(get_medication.getString("name"), TextView.BufferType.EDITABLE);
+			    	medicationAmountET.setText(get_medication.getString("amount"), TextView.BufferType.EDITABLE);
+			    	medicationIntervalET.setText(get_medication.getString("interval"), TextView.BufferType.EDITABLE);
+			    	medicationDescriptionET.setText(get_medication.getString("description"), TextView.BufferType.EDITABLE);
 			    	if(get_medication.getString("source").equals("Prescribed")){
 			    		medicationRG.check(R.id.prescribedRadioButton);
 			    	}
@@ -120,18 +120,10 @@ public class EnterMedicationActivity extends Activity {
 					query.getInBackground(medicationID, new GetCallback<ParseObject>() {
 					  public void done(ParseObject get_medication, ParseException e) {
 					    if (e == null) {
-					    	if(!medicationNameET.getText().toString().equals("")){
 					    		get_medication.put("name",medicationNameET.getText().toString());
-							}
-							if(!medicationAmountET.getText().toString().equals("")){
 								get_medication.put("amount",medicationAmountET.getText().toString());
-							}
-							if(!medicationIntervalET.getText().toString().equals("")){
 								get_medication.put("interval",medicationIntervalET.getText().toString());
-							}
-							if(!medicationDescriptionET.getText().toString().equals("")){
 								get_medication.put("description",medicationDescriptionET.getText().toString());
-							}
 							get_medication.put("source", PorOTC);
 							get_medication.saveInBackground();
 					    }
@@ -205,18 +197,10 @@ public class EnterMedicationActivity extends Activity {
 					query.getInBackground(medicationID, new GetCallback<ParseObject>() {
 					  public void done(ParseObject get_medication, ParseException e) {
 					    if (e == null) {
-					    	if(!medicationNameET.getText().toString().equals("")){
 					    		get_medication.put("name",medicationNameET.getText().toString());
-							}
-							if(!medicationAmountET.getText().toString().equals("")){
 								get_medication.put("amount",medicationAmountET.getText().toString());
-							}
-							if(!medicationIntervalET.getText().toString().equals("")){
 								get_medication.put("interval",medicationIntervalET.getText().toString());
-							}
-							if(!medicationDescriptionET.getText().toString().equals("")){
 								get_medication.put("description",medicationDescriptionET.getText().toString());
-							}
 							get_medication.put("source", PorOTC);
 							get_medication.saveInBackground();
 					    }

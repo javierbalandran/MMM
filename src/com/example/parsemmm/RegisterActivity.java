@@ -44,6 +44,19 @@ public class RegisterActivity extends Activity {
 					final ParseUser user = new ParseUser();
 					user.setUsername(usernameET.getText().toString());
 					user.setPassword(passwordET.getText().toString());
+					user.put("first_name","");
+					user.put("last_name","");
+					user.put("middle_initial","");
+					user.put("year","");
+					
+					user.put("blood_type", "");
+					user.put("blood_type_position", 0);
+					
+					user.put("day", "");
+					user.put("day_position",0);
+					user.put("month", "");
+					user.put("month_position", 0);
+					user.put("gender", "Male");
 					
 					user.signUpInBackground(new SignUpCallback() {
 					  public void done(ParseException e) {

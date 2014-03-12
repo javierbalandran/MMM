@@ -13,10 +13,15 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -72,6 +77,13 @@ public class ViewInfoActivity extends FragmentActivity {
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+	}
+	
+	@Override
+	public void onBackPressed(){
+		Intent i = new Intent();
+        i.setClass(ViewInfoActivity.this, MainActivity.class);
+        startActivity(i);
 	}
 
 	@Override
@@ -169,11 +181,14 @@ public class ViewInfoActivity extends FragmentActivity {
 				TextView lastnameTV = (TextView)rootView.findViewById(R.id.lastNameDisplay);
 				lastnameTV.setText(user.getString("last_name"));
 				
+				TextView genderTV = (TextView)rootView.findViewById(R.id.genderDisplay);
+				genderTV.setText(user.getString("gender"));
+				
 				TextView dayTV = (TextView)rootView.findViewById(R.id.dayDisplay);
-				dayTV.setText(user.getString("day"));
+				dayTV.setText(user.getString("day") + ", ");
 				
 				TextView monthTV = (TextView)rootView.findViewById(R.id.monthDisplay);
-				monthTV.setText(user.getString("month")+ ", ");
+				monthTV.setText(user.getString("month")+ " ");
 				
 				TextView yearTV = (TextView)rootView.findViewById(R.id.yearDisplay);
 				yearTV.setText(user.getString("year"));
@@ -198,8 +213,27 @@ public class ViewInfoActivity extends FragmentActivity {
 			else if(position == 2){
 				final ArrayList<String> contactIdList = new ArrayList<String>();
 				final View rootView = inflater.inflate(R.layout.contact_list_view, container, false);
+				
+				
+				((Button)rootView.findViewById(R.id.newContactButton)).setOnClickListener(new OnClickListener() {
+					@Override
+		            public void onClick(View v) {
+						Intent i = new Intent();
+						i.putExtra("userid",ID);
+						i.putExtra("contactid", 0);
+						i.putExtra("pageFlow", 2);
+		                i.setClass(getActivity(), EnterContactActivity.class);
+		                startActivity(i);
+		                
+		            }
+				});
+				
+			//	contactIdList.isEmpty();
+				
+				//Toast toast2 = Toast.makeText(getActivity(), "empty "+contactIdList.isEmpty(), Toast.LENGTH_SHORT);
+				//toast2.show();
 				contactIdList.add("Ri9rUDH9S2");
-				//contactIdList.remove("Ri9rUDH9S2");
+				
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("Contact");
 				query.whereEqualTo("user", ID);
 				query.findInBackground(new FindCallback<ParseObject>(){
@@ -211,10 +245,10 @@ public class ViewInfoActivity extends FragmentActivity {
 						//	toast.show();
 							for(int i = 0; i < contactList.size(); i++){
 								contactIdList.add(contactList.get(i).getObjectId());
-								//Toast toast = Toast.makeText(getActivity(),"id:  " + contactList.get(i).getString("objectId") , Toast.LENGTH_SHORT);
+								//Toast toast = Toast.makeText(getActivity(), "check"+ i , Toast.LENGTH_SHORT);
 								//toast.show();
 							}
-							
+							//contactIdList.notify();
 							
 						}
 						else{
@@ -223,14 +257,10 @@ public class ViewInfoActivity extends FragmentActivity {
 					}
 				});
 				
-				/*contactIdList.add("ZQBlJD6AO6");
-				contactIdList.add("Ri9rUDH9S2");
-				contactIdList.add("FKdKiY2LNm");
-				contactIdList.add("CaOnzSIsBs");
-				contactIdList.add("ih5J30xCGG");
-				*/
+			
+				//Toast toast = Toast.makeText(getActivity(), "check size "+ contactIdList.size() , Toast.LENGTH_SHORT);
+				//toast.show();
 				
-				//contactIdList.add("FKdKiY2LNm");
 				ContactListAdapter2 m_contactListAdapter = new ContactListAdapter2(getActivity(), inflater, contactIdList);
 				ListView m_vwContactLayout = (ListView)rootView.findViewById(R.id.contactListViewGroup);
 				m_vwContactLayout.setAdapter(m_contactListAdapter);
@@ -239,6 +269,20 @@ public class ViewInfoActivity extends FragmentActivity {
 			else if(position == 3){
 				final ArrayList<String> allergyIdList = new ArrayList<String>();
 				final View rootView = inflater.inflate(R.layout.allergy_list_view, container, false);
+				
+				((Button)rootView.findViewById(R.id.newAllergyButton)).setOnClickListener(new OnClickListener() {
+					@Override
+		            public void onClick(View v) {
+						Intent i = new Intent();
+						i.putExtra("userid",ID);
+						i.putExtra("allergyid", 0);
+						i.putExtra("pageFlow", 2);
+		                i.setClass(getActivity(), EnterAllergyActivity.class);
+		                startActivity(i);
+		                
+		            }
+				});
+				
 				
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("Allergy");
 				query.whereEqualTo("user", ID);
@@ -269,6 +313,19 @@ public class ViewInfoActivity extends FragmentActivity {
 				final ArrayList<String> medicationIdList = new ArrayList<String>();
 				final View rootView = inflater.inflate(R.layout.medication_list_view, container, false);
 				
+				((Button)rootView.findViewById(R.id.newMedicationButton)).setOnClickListener(new OnClickListener() {
+					@Override
+		            public void onClick(View v) {
+						Intent i = new Intent();
+						i.putExtra("userid",ID);
+						i.putExtra("medicationid", 0);
+						i.putExtra("pageFlow", 2);
+		                i.setClass(getActivity(), EnterMedicationActivity.class);
+		                startActivity(i);
+		                
+		            }
+				});
+				
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("Medication");
 				query.whereEqualTo("user", ID);
 				query.findInBackground(new FindCallback<ParseObject>(){
@@ -298,6 +355,19 @@ public class ViewInfoActivity extends FragmentActivity {
 				final ArrayList<String> historyIdList = new ArrayList<String>();
 				final View rootView = inflater.inflate(R.layout.history_list_view, container, false);
 				
+				((Button)rootView.findViewById(R.id.newHistoryButton)).setOnClickListener(new OnClickListener() {
+					@Override
+		            public void onClick(View v) {
+						Intent i = new Intent();
+						i.putExtra("userid",ID);
+						i.putExtra("historyid", 0);
+						i.putExtra("pageFlow", 2);
+		                i.setClass(getActivity(), EnterHistoryActivity.class);
+		                startActivity(i);
+		                
+		            }
+				});
+				
 				ParseQuery<ParseObject> query = ParseQuery.getQuery("History");
 				query.whereEqualTo("user", ID);
 				query.findInBackground(new FindCallback<ParseObject>(){
@@ -316,7 +386,7 @@ public class ViewInfoActivity extends FragmentActivity {
 						}
 					}
 				});
-				historyIdList.add("K9eeI1tjhO");
+				historyIdList.add("lxALD6qLs6");
 				//historyIdList.add("BdDVaxFmvE");
 				HistoryListAdapter m_historyListAdapter = new HistoryListAdapter(getActivity(), inflater, historyIdList);
 				ListView m_vwContactLayout = (ListView)rootView.findViewById(R.id.historyListViewGroup);
@@ -401,6 +471,38 @@ public class ViewInfoActivity extends FragmentActivity {
 			            }
 					});
 					
+					((Button)row.findViewById(R.id.contactRemoveButton)).setOnClickListener(new OnClickListener() {
+						@Override
+			            public void onClick(View v) {
+							AlertDialog alertDialog = new AlertDialog.Builder(m_context).create();
+							alertDialog.setTitle("Remove this Contact");
+							alertDialog.setMessage("Are you sure? This will permanently delete this information!");
+							
+							alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+							   public void onClick(DialogInterface dialog, int which) {
+								   try {
+									contact.delete();
+									
+									Intent i = new Intent();
+									i.putExtra("userid",ID);
+					                i.setClass(m_context, ViewInfoActivity.class);
+					                m_context.startActivity(i);
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							   }
+							});
+							alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+								   public void onClick(DialogInterface dialog, int which) {
+								      // TODO Add your code for the button here.
+								   }
+								});
+							// Set the Icon for the Dialog
+							alertDialog.show();
+			            }
+					});
+					
 			    }
 			    else
 			    {
@@ -475,6 +577,40 @@ public class ViewInfoActivity extends FragmentActivity {
 			                m_context.startActivity(i); 
 			            }
 					});	
+					
+
+					((Button)row.findViewById(R.id.allergyRemoveButton)).setOnClickListener(new OnClickListener() {
+						@Override
+			            public void onClick(View v) {
+							AlertDialog alertDialog = new AlertDialog.Builder(m_context).create();
+							alertDialog.setTitle("Remove this Allergy");
+							alertDialog.setMessage("Are you sure? This will permanently delete this information!");
+							
+							alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+							   public void onClick(DialogInterface dialog, int which) {
+								   try {
+									allergy.delete();
+									
+									Intent i = new Intent();
+									i.putExtra("userid",ID);
+					                i.setClass(m_context, ViewInfoActivity.class);
+					                m_context.startActivity(i);
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							   }
+							});
+							alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+								   public void onClick(DialogInterface dialog, int which) {
+								      // TODO Add your code for the button here.
+								   }
+								});
+							// Set the Icon for the Dialog
+							alertDialog.show();
+			            }
+					});
+					
 			    }
 			    else
 			    {  	
@@ -533,7 +669,7 @@ public class ViewInfoActivity extends FragmentActivity {
 			    if (e == null) {
 			    	medicationNameTV.setText(medication.getString("name"));
 			    	medicationSourceTV.setText(medication.getString("source"));
-			    	medicationAmountTV.setText(medication.getString("amount"));
+			    	medicationAmountTV.setText(medication.getString("amount")+"/");
 			    	medicationIntervalTV.setText(medication.getString("interval"));
 			    	medicationDescriptionTV.setText(medication.getString("description"));
 
@@ -549,6 +685,38 @@ public class ViewInfoActivity extends FragmentActivity {
 			                m_context.startActivity(i); 
 			            }
 					});	
+					
+					((Button)row.findViewById(R.id.medicationRemoveButton)).setOnClickListener(new OnClickListener() {
+						@Override
+			            public void onClick(View v) {
+							AlertDialog alertDialog = new AlertDialog.Builder(m_context).create();
+							alertDialog.setTitle("Remove this Medication");
+							alertDialog.setMessage("Are you sure? This will permanently delete this information!");
+							
+							alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+							   public void onClick(DialogInterface dialog, int which) {
+								   try {
+									medication.delete();
+									
+									Intent i = new Intent();
+									i.putExtra("userid",ID);
+					                i.setClass(m_context, ViewInfoActivity.class);
+					                m_context.startActivity(i);
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							   }
+							});
+							alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+								   public void onClick(DialogInterface dialog, int which) {
+								      // TODO Add your code for the button here.
+								   }
+								});
+							// Set the Icon for the Dialog
+							alertDialog.show();
+			            }
+					});
 			    }
 			    else
 			    {  	
@@ -625,6 +793,38 @@ public class ViewInfoActivity extends FragmentActivity {
 			                m_context.startActivity(i); 
 			            }
 					});	
+					
+					((Button)row.findViewById(R.id.historyRemoveButton)).setOnClickListener(new OnClickListener() {
+						@Override
+			            public void onClick(View v) {
+							AlertDialog alertDialog = new AlertDialog.Builder(m_context).create();
+							alertDialog.setTitle("Remove this Medical History Event");
+							alertDialog.setMessage("Are you sure? This will permanently delete this information!");
+							
+							alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+							   public void onClick(DialogInterface dialog, int which) {
+								   try {
+									history.delete();
+									
+									Intent i = new Intent();
+									i.putExtra("userid",ID);
+					                i.setClass(m_context, ViewInfoActivity.class);
+					                m_context.startActivity(i);
+								} catch (ParseException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							   }
+							});
+							alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No", new DialogInterface.OnClickListener() {
+								   public void onClick(DialogInterface dialog, int which) {
+								      // TODO Add your code for the button here.
+								   }
+								});
+							// Set the Icon for the Dialog
+							alertDialog.show();
+			            }
+					});
 			    }
 			    else
 			    {  	
@@ -638,6 +838,7 @@ public class ViewInfoActivity extends FragmentActivity {
 		Toast toast = Toast.makeText(this, text, Toast.LENGTH_SHORT);
 		toast.show();
 	}
+	 
 }
 
 

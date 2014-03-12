@@ -82,11 +82,11 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 			  public void done(ParseObject get_contact, ParseException e) {
 			    if (e == null) {
 			    	//set the Edit Text fields to values from the database
-			    	contactNameET.setHint(get_contact.getString("name"));
-					contactRelationET.setHint(get_contact.getString("relation"));
-					homePhoneET.setHint(get_contact.getString("homePhone"));
-					cellPhoneET.setHint(get_contact.getString("cellPhone"));
-					workPhoneET.setHint(get_contact.getString("workPhone"));
+			    	contactNameET.setText(get_contact.getString("name"), TextView.BufferType.EDITABLE);
+					contactRelationET.setText(get_contact.getString("relation"), TextView.BufferType.EDITABLE);
+					homePhoneET.setText(get_contact.getString("homePhone"), TextView.BufferType.EDITABLE);
+					cellPhoneET.setText(get_contact.getString("cellPhone"), TextView.BufferType.EDITABLE);
+					workPhoneET.setText(get_contact.getString("workPhone"), TextView.BufferType.EDITABLE);
 					contactTypeSpinner.setSelection(get_contact.getInt("contact_type_position"));
 					contactType = get_contact.getString("contact_type");
 			    }
@@ -135,21 +135,11 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 					query.getInBackground(contactID, new GetCallback<ParseObject>() {
 						  public void done(ParseObject get_contact, ParseException e) {
 						    if (e == null) {
-						    	if(!contactNameET.getText().toString().equals("")){
-						    		get_contact.put("name",contactNameET.getText().toString());
-								}
-								if(!contactRelationET.getText().toString().equals("")){
-									get_contact.put("relation",contactRelationET.getText().toString());
-								}
-								if(!homePhoneET.getText().toString().equals("")){
-									get_contact.put("homePhone",homePhoneET.getText().toString());
-								}
-								if(!cellPhoneET.getText().toString().equals("")){
-									get_contact.put("cellPhone",cellPhoneET.getText().toString());
-								}
-								if(!workPhoneET.getText().toString().equals("")){
-									get_contact.put("workPhone",workPhoneET.getText().toString());
-								}
+					    		get_contact.put("name",contactNameET.getText().toString());
+								get_contact.put("relation",contactRelationET.getText().toString());
+								get_contact.put("homePhone",homePhoneET.getText().toString());
+								get_contact.put("cellPhone",cellPhoneET.getText().toString());
+								get_contact.put("workPhone",workPhoneET.getText().toString());
 								get_contact.put("contact_type",contactType);
 								get_contact.put("contact_type_position",contactTypePosition);
 								get_contact.saveInBackground();
@@ -164,7 +154,9 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 					i.putExtra("userid",ID);
 	                i.setClass(EnterContactActivity.this, ViewInfoActivity.class);
 	                startActivity(i);
-					    
+					 
+					
+					//finish();
 				}
 				message("saved");
             }
@@ -194,21 +186,11 @@ public class EnterContactActivity extends Activity implements OnItemSelectedList
 					query.getInBackground(contactID, new GetCallback<ParseObject>() {
 						  public void done(ParseObject get_contact, ParseException e) {
 						    if (e == null) {
-						    	if(!contactNameET.getText().toString().equals("")){
 						    		get_contact.put("name",contactNameET.getText().toString());
-								}
-								if(!contactRelationET.getText().toString().equals("")){
 									get_contact.put("relation",contactRelationET.getText().toString());
-								}
-								if(!homePhoneET.getText().toString().equals("")){
 									get_contact.put("homePhone",homePhoneET.getText().toString());
-								}
-								if(!cellPhoneET.getText().toString().equals("")){
 									get_contact.put("cellPhone",cellPhoneET.getText().toString());
-								}
-								if(!workPhoneET.getText().toString().equals("")){
 									get_contact.put("workPhone",workPhoneET.getText().toString());
-								}
 								get_contact.put("contact_type",contactType);
 								get_contact.put("contact_type_position",contactTypePosition);
 								get_contact.saveInBackground();

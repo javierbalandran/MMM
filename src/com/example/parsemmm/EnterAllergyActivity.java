@@ -72,9 +72,9 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 			  public void done(ParseObject get_allergy, ParseException e) {
 			    if (e == null) {
 			    	allergyTitleTV.setText("Edit Allergy");
-					allergyNameET.setHint(get_allergy.getString("name"));
-					allergyDetailsET.setHint(get_allergy.getString("details"));
-					allergyTypeSpinner.setSelection(get_allergy.getInt("allergy_type_position"));
+					allergyNameET.setText(get_allergy.getString("name"), TextView.BufferType.EDITABLE);
+					allergyDetailsET.setText(get_allergy.getString("details"), TextView.BufferType.EDITABLE);
+					allergyTypeSpinner.setSelection(get_allergy.getInt("typePosition"));
 			    }
 			    else
 			    {
@@ -101,12 +101,8 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 					query.getInBackground(allergyID, new GetCallback<ParseObject>() {
 					  public void done(ParseObject get_allergy, ParseException e) {
 					    if (e == null) {
-					    	if(!allergyNameET.getText().toString().equals("")){
 					    		get_allergy.put("name", allergyNameET.getText().toString());
-							}
-							if(!allergyDetailsET.getText().toString().equals("")){
 								get_allergy.put("details", allergyNameET.getText().toString());
-							}
 							get_allergy.put("type", allergyType);
 							get_allergy.put("typePosition", allergyTypePosition);
 							get_allergy.saveInBackground();
@@ -167,12 +163,8 @@ public class EnterAllergyActivity extends Activity implements OnItemSelectedList
 					query.getInBackground(allergyID, new GetCallback<ParseObject>() {
 					  public void done(ParseObject get_allergy, ParseException e) {
 					    if (e == null) {
-					    	if(!allergyNameET.getText().toString().equals("")){
 					    		get_allergy.put("name", allergyNameET.getText().toString());
-							}
-							if(!allergyDetailsET.getText().toString().equals("")){
-								get_allergy.put("details", allergyNameET.getText().toString());
-							}
+								get_allergy.put("details", allergyDetailsET.getText().toString());
 							get_allergy.put("type", allergyType);
 							get_allergy.put("typePosition", allergyTypePosition);
 							get_allergy.saveInBackground();

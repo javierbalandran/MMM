@@ -84,14 +84,14 @@
         <Button
             android:id="@+id/additionalMedicationButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="Add New" />
+            android:text="Add New Medication" />
 
         <Button
             android:id="@+id/continueMedicationButton"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="Continue" />
     </LinearLayout>

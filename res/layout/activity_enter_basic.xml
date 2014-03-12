@@ -26,7 +26,7 @@
             android:id="@+id/textView1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="First Name: " />
+            android:text="*First Name: " />
 
         <EditText
             android:id="@+id/firstNameEditText"
@@ -38,7 +38,6 @@
 
             <requestFocus />
         </EditText>
-
     </LinearLayout>
 
     <LinearLayout
@@ -58,7 +57,6 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Middle Initial" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -69,7 +67,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Last Name: " />
+            android:text="*Last Name: " />
 
         <EditText
             android:id="@+id/lastNameEditText"
@@ -78,8 +76,28 @@
             android:layout_weight="1"
             android:ems="10"
             android:hint="Last Name" />
-
     </LinearLayout>
+
+    <RadioGroup
+        android:id="@+id/genderRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <RadioButton
+            android:id="@+id/maleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Male" />
+
+        <RadioButton
+            android:id="@+id/femaleRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female" />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -111,7 +129,6 @@
             android:ems="10"
             android:hint="year"
             android:inputType="number" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -130,7 +147,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
-
     </LinearLayout>
 
     <Button

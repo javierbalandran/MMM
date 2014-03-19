@@ -2,27 +2,30 @@ package minimed.data;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class User {
 
+	private String password;
 	private String firstName;
+	private String middleInitial;
 	private String lastName;
 	private String birthDate;
 	private BloodType bloodType;
-	
-	public User(String firstName, String lastName, String birthDate,
-			BloodType bloodType) {
+	private Gender gender;
+
+	public User(String firstName, String middleInitial, String lastName,
+			String birthDate, BloodType bloodType, Gender gender, String password) {
 		this.firstName = firstName;
+		this.middleInitial = middleInitial;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
 		this.bloodType = bloodType;
+		this.gender = gender;
+		this.password = password;
 	}
 
 	public User(String json) {
@@ -36,9 +39,12 @@ public class User {
 		}
 		
 		this.firstName = (String) values.get(FieldNames.USER.FIRST_NAME);
+		this.middleInitial = (String) values.get(FieldNames.USER.MIDDLE_INITIAL);
 		this.lastName = (String) values.get(FieldNames.USER.LAST_NAME);
 		this.birthDate = (String) values.get(FieldNames.USER.DOB);
 		this.bloodType = BloodType.valueOf((String)values.get(FieldNames.USER.BLOOD_TYPE));
+		this.gender = Gender.valueOf((String)values.get(FieldNames.USER.GENDER));
+		this.password = (String) values.get(FieldNames.USER.PASSWORD);
 	}
 	
 	public String getJSONString() {
@@ -47,9 +53,12 @@ public class User {
 		Map<String, Object> values = new HashMap<String, Object>();
 		
 		values.put(FieldNames.USER.FIRST_NAME, firstName);
+		values.put(FieldNames.USER.MIDDLE_INITIAL, middleInitial);
 		values.put(FieldNames.USER.LAST_NAME, lastName);
 		values.put(FieldNames.USER.DOB, birthDate);
 		values.put(FieldNames.USER.BLOOD_TYPE, bloodType.name());
+		values.put(FieldNames.USER.GENDER, gender.name());
+		values.put(FieldNames.USER.PASSWORD, password);
 		
 		try {
 			blobString = mapper.writeValueAsString(values);
@@ -60,10 +69,46 @@ public class User {
 	}
 
 	@Override
-	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName
-				+ ", birthDate=" + birthDate + ", bloodType=" + bloodType + "]";
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (birthDate == null) {
+			if (other.birthDate != null)
+				return false;
+		} else if (!birthDate.equals(other.birthDate))
+			return false;
+		if (bloodType != other.bloodType)
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (gender != other.gender)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (middleInitial == null) {
+			if (other.middleInitial != null)
+				return false;
+		} else if (!middleInitial.equals(other.middleInitial))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		return true;
 	}
 
+	
 	
 }
